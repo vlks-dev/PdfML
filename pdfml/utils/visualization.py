@@ -53,7 +53,7 @@ def visualize_layout(image, layout_data, colors=None):
         
         # Рисуем рамку
         draw.rectangle(
-            [(bbox[0], bbox[1]), (bbox[2], bbox[3])],
+            [(bbox[0], bbox[1]), (bbox[2], bbox[3])], # TODO: Нет такого атрибута bbox
             outline=color,
             width=3
         )

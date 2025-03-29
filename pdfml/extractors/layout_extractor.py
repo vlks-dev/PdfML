@@ -44,7 +44,7 @@ class LayoutExtractor:
         try:
             if model_type == "detectron2":
                 # Используем предобученную модель для распознавания макета
-                model = lp.Detectron2LayoutModel(
+                model = lp.Detectron2LayoutModel( # TODO: Нет такого класса, как правильно использовать Detectron2LayoutModel?
                     'lp://PubLayNet/mask_rcnn_X_101_32x8d_FPN_3x/config',
                     extra_config=["MODEL.ROI_HEADS.SCORE_THRESH_TEST", 0.8],
                     label_map={
@@ -164,7 +164,7 @@ class LayoutExtractor:
         
         # Подготовка данных для визуализации
         layout_data = []
-        for category, blocks in result.items():
+        for category, blocks in result.items(): # TODO: Нет такого атрибута items
             for block in blocks:
                 coords = block["coords"]
                 layout_data.append({

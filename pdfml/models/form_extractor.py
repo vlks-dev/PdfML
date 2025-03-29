@@ -79,7 +79,7 @@ class FormExtractor:
         """
         # Открываем PDF
         try:
-            doc = fitz.open(pdf_path)
+            doc = fitz.Document(pdf_path) 
             
             if page_numbers is None:
                 page_numbers = range(len(doc))
@@ -113,7 +113,7 @@ class FormExtractor:
             list: Список извлеченных полей
         """
         # Конвертируем страницу в изображение
-        pix = page.get_pixmap(matrix=fitz.Matrix(300/72, 300/72))
+        pix = page.get_pixmap(matrix=fitz.Matrix(300/72, 300/72)) # TODO: Нет такого метода get_pixmap
         img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
         
         # Получаем текст страницы для дополнительного контекста
@@ -132,7 +132,7 @@ class FormExtractor:
         bbox = encoding.bbox[0].tolist()
         
         # Получаем токены
-        tokens = self.processor.tokenizer.convert_ids_to_tokens(encoding.input_ids[0].tolist())
+        tokens = self.processor.tokenizer.convert_ids_to_tokens(encoding.input_ids[0].tolist()) # TODO: Нет такого атрибута tokenizer
         
         # Группируем результаты в поля формы
         fields = []
@@ -168,7 +168,7 @@ class FormExtractor:
                 
                 # Расширяем bbox
                 current_box = [
-                    min(current_box[0], box[0]),
+                    min(current_box[0], box[0]), # TODO: Нет такого атрибута box
                     min(current_box[1], box[1]),
                     max(current_box[2], box[2]),
                     max(current_box[3], box[3])
