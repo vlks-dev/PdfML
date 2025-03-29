@@ -3,8 +3,12 @@
 """
 
 import spacy
+from spacy.glossary import explain
+from spacy.tokens import Doc
+from spacy.language import Language
 from transformers import pipeline, AutoTokenizer, AutoModelForTokenClassification
 import re
+from typing import List, Dict, Any, Optional, Union, cast
 
 from ..utils.logger import get_logger
 
@@ -44,7 +48,8 @@ class EntityExtractor:
         try:
             if model_type == "spacy":
                 model = spacy.load(model_name)
-                logger.info(f"Загружена модель SpaCy: {model_name}")
+                
+                logger.info(f"Загружена модель SpaCy: {model_name}")    
                 return model
             elif model_type == "transformers":
                 tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -83,7 +88,7 @@ class EntityExtractor:
             logger.error(f"Ошибка при извлечении сущностей: {e}")
             return []
     
-    def _extract_with_spacy(self, text):
+    def _extract_with_spacy(self, text: str) -> List[Dict[str, Any]]:
         """
         Извлечение сущностей с использованием SpaCy.
         
@@ -93,17 +98,19 @@ class EntityExtractor:
         Returns:
             list: Список сущностей
         """
-        doc = self.model(text)
-        
+        doc = cast(Doc, self.model(text))
         entities = []
+        
         for ent in doc.ents:
+            # Создаём словарь с информацией о сущности
             entity = {
                 "text": ent.text,
                 "label": ent.label_,
                 "start_char": ent.start_char,
                 "end_char": ent.end_char,
-                "description": spacy.explain(ent.label_)
+                "description": spacy.glossary.explain(ent.label_)
             }
+            
             entities.append(entity)
             
         return entities
