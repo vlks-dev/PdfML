@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+.python-version
+*.so
+.Python
+*.egg-info/
+*.egg
+dist/
+build/
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+*.code-workspace
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# Environment
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Logs
+*.log
+*.log.*
+logs/
+
+# System
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# Project-specific
+/examples/*.pdf  # если примеры PDF не нужно коммитить
+/models/**/*.bin  # если используются бинарные модели
+/tests/output/  # если есть папка с тестовыми артефактами
+
+# Documentation
+docs/_build/
